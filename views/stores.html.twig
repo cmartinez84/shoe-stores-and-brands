@@ -38,15 +38,30 @@
              <input type="text" name="name" value="{{selected_store.getName}}">
              <button class="btn btn-success" type="submit" name="button">Update</button>
          </form>
-         {% if selected_brands is not empty%}
+
          <div class="">
+             <h1>Brands carried by this Store:</h1>
+             {% if selected_brands is  empty%}
+            <h3>This Store currently carries none of our listed brands of shoes. To begin entering brands, please go to <a href="/brands">here</a>or select from the menu below</h3>
+            {% else%}
              {% for brand in selected_brands %}
              <a href="/brands/{{brand.getId}}"><p> {{brand.getName}}</p></a>
              {% endfor %}
-         </div>
-         {% else%}
-         <h1>This Store currently carries none of our listed brands of shoes. To begin entering brands, please go <a href="/brands">here</a></h1>
-         {% endif %}
+             {% endif %}
+             <form class="" action="/stores/add/{{selected_store.getId}}" method="post">
+                 <h3>Enter Brands to carry at this store:</h3>
+                 <div class="form-group">
+                     <select class="form-control" name="brand_id">
+                         {%if allBrands is not empty%}
+                             {% for brand in allBrands%}
+                             <option value="{{brand.getId}}">{{brand.getName}}</option>
+                             {% endfor %}
+                         {% endif %}
+                     </select>
+                 </div>
+                 <button class="btn btn-success form-control"type="submit" name="button">Submit</button>
+             </form>
+        </div>
      </div>
 
      {% endif %}

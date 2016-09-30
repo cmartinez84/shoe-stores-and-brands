@@ -14,7 +14,7 @@
 
     $app['debug'] = true;
 
-    $server = 'mysql:host=localhost:8889;dbname=shoes';
+    $server = 'mysql:host=localhost:8889;dbname=shoes_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
@@ -27,27 +27,34 @@
     });
 
     $app->get("/stores", function() use ($app) {
-      return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'selected_store' =>null, 'selected_brands'=>null));
+      return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'allBrands'=> Brand::getAll(), 'selected_store' =>null, 'selected_brands'=>null));
     });
 
     $app->post("/stores", function() use ($app) {
         $new_store = new Store(null, $_POST['name']);
         $new_store->save();
-        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'selected_store' =>null, 'selected_brands'=>null));
+        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'allBrands'=>Brand::getAll(), 'selected_store' =>null, 'selected_brands'=>null));
     });
     $app->get("/stores/{id}", function($id) use ($app) {
         $selected_store = Store::find($id);
-        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'selected_store'=>$selected_store, 'selected_brands'=>null));
+        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'allBrands'=>Brand::getAll(), 'selected_store'=>$selected_store, 'selected_brands'=>$selected_store->getBrands()));
     });
+
+    $app->post("/stores/add/{id}", function($id) use ($app) {
+        $selected_store = Store::find($id);
+        $selected_store->addBrand($_POST['brand_id']);
+        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'allBrands'=>Brand::getAll(), 'selected_store'=>$selected_store, 'selected_brands'=>$selected_store->getBrands()));
+    });
+
     $app->delete("/stores/delete", function() use ($app) {
         $selected_store = Store::find($_POST['store_id']);
         $selected_store->delete();
-        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'selected_store'=>null, 'selected_brands'=>null));
+        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'allBrands'=>Brand::getAll(), 'selected_store'=>null, 'selected_brands'=>null));
     });
     $app->patch("/stores/update", function() use ($app) {
         $selected_store = Store::find($_POST['store_id']);
         $selected_store->update($_POST['name']);
-        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'selected_store'=>$selected_store, 'selected_brands'=>null));
+        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'allBrands'=>Brand::getAll(), 'selected_store'=>$selected_store, 'selected_brands'=>null));
     });
     $app->get("/brands", function() use ($app) {
       return $app['twig']->render('brands.html.twig', array('allBrands' =>Brand::getAll(), 'selected_brand'=>null));
@@ -60,14 +67,18 @@
 
     $app->get("/brands/{id}", function($id) use ($app) {
         $selected_brand = Brand::find($id);
-      return $app['twig']->render('brands.html.twig', array('allBrands' =>Brand::getAll(), 'selected_brand'=>$selected_brand, 'selected_stores' =>null));
+        $selected_stores = $selected_brand->getStores();
+        var_dump($selected_stores);
+      return $app['twig']->render('brands.html.twig', array('allBrands' =>Brand::getAll(), 'selected_brand'=>$selected_brand, 'selected_stores'=> $selected_stores));
     });
 
     $app->patch("/brands/{id}", function($id) use ($app) {
         $selected_brand = Brand::find($id);
         $selected_brand->update($_POST['name']);
-      return $app['twig']->render('brands.html.twig', array('allBrands' =>Brand::getAll(), 'selected_brand'=>$selected_brand, 'selected_stores' =>null));
+        $selected_stores = $selected_brand->getStores();
+      return $app['twig']->render('brands.html.twig', array('allBrands' =>Brand::getAll(), 'selected_brand'=>$selected_brand,  'selected_stores'=> $selected_stores));
     });
+
     $app->delete("/brands/delete", function() use ($app) {
         $selected_brand = Brand::find($_POST['brand_id']);
         $selected_brand->delete();
