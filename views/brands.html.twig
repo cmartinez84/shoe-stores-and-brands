@@ -32,6 +32,16 @@
                     </div>
                 </form>
             </div>
+            {% if selected_brand%}
+            <div class="well">
+                    <h1>{{selected_brand.getName}}</h1>
+                    <form class="" action="/brands/delete" method="post">
+                        <input type="hidden" name="_method" value="delete">
+                        <input type="hidden" name="brand_id" value="{{selected_brand.getId}}">
+                        <button class="btn btn-danger form-control" type="submit" name="button">Delete</button>
+                    </form>
+            </div>
+            {% endif %}
 
 
         </div>
