@@ -39,6 +39,10 @@
         {
             $GLOBALS['DB']->exec("INSERT INTO brands_stores (brand_id, store_id) VALUES ( {$this->getId()}, {$store_id});");
         }
+        function removeStore($store_id)
+        {
+            $GLOBALS['DB']->exec("DELETE FROM brands_stores WHERE store_id={$store_id};");
+        }
         function getStores()
         {
             $returned_stores = $GLOBALS['DB']->query("SELECT stores.* FROM brands

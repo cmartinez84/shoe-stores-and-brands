@@ -171,5 +171,65 @@
             //Assert
             $this->assertEquals([$test_store], $result);
         }
+        function test_getStores()
+        {
+            //Act
+            $id = null;
+            $brand_name = "Nike";
+            $test_brand = new Brand($id, $brand_name);
+            $test_brand->save();
+
+            $store_name = "Shoe Store";
+            $test_store = new Store($id, $store_name);
+            $test_store->save();
+            $test_store_id = $test_store->getId();
+
+            $store_name2 = "Shoe Store";
+            $test_store2 = new Store($id2, $store_name2);
+            $test_store2->save();
+            $test_store_id2 = $test_store2->getId();
+
+
+            //Act
+            $test_brand->addStore($test_store_id);
+            $test_brand->addStore($test_store_id2);
+
+
+            $result = $test_brand->getStores();
+
+            //Assert
+            $this->assertEquals([$test_store, $test_store2], $result);
+
+        }
+        function test_deleteStore()
+        {
+            //Act
+            $id = null;
+            $brand_name = "Nike";
+            $test_brand = new Brand($id, $brand_name);
+            $test_brand->save();
+
+            $store_name = "Shoe Store";
+            $test_store = new Store($id, $store_name);
+            $test_store->save();
+            $test_store_id = $test_store->getId();
+
+            $store_name2 = "Shoe Store";
+            $test_store2 = new Store($id2, $store_name2);
+            $test_store2->save();
+            $test_store_id2 = $test_store2->getId();
+
+            $test_brand->addStore($test_store_id);
+            $test_brand->addStore($test_store_id2);
+
+            //Act
+            $test_brand->removeStore($test_store_id);
+
+            $result = $test_brand->getStores();
+
+            //Assert
+            $this->assertEquals([$test_store2], $result);
+
+        }
     }
 ?>
