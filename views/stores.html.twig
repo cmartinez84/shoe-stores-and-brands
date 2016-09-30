@@ -5,66 +5,84 @@
     <title></title>
   </head>
   <body>
-     <h1>Stores</h1>
-     {% if allStores is not empty%}
-        <ul>
-            {% for store in allStores%}
-            <a href="/stores/{{store.getId}}"><li>{{store.getName}}</li></a>
-            {% endfor %}
-        </ul>
+      <div class="container">
+          <div class="well">
+              <h1>Stores</h1>
+              {% if allStores is not empty%}
+                 <ul>
+                     {% for store in allStores%}
+                     <a href="/stores/{{store.getId}}"><li>{{store.getName}}</li></a>
+                     {% endfor %}
+                 </ul>
 
-     {% else %}
-     <h1>There are no stores. Please add Stores!</h1>
-     {% endif %}
-     <form action="/stores" method="post">
-        <div class="form-group">
-            <label  for="">Create New Store:</label>
-            <input class="form-control" type="text" name="name">
-            <button class="form-control btn btn-success" type="submit" name="button">Submit</button>
-        </div>
-     </form>
-     {% if selected_store %}
-     <div class="well">
-         <p><strong>Store Name: </strong>{{selected_store.getName}} </p>
-         <form class="" action="/stores/delete" method="post">
-             <input type="hidden" name="_method" value="delete">
-             <input type="hidden" name="store_id" value="{{selected_store.getId}}">
-             <button class="btn btn-danger form-control" type="submit" name="button">Delete</button>
-         </form>
-         <form class="" action="/stores/update" method="post">
-             <label for="">Edit Store Name:</label>
-             <input type="hidden" name="_method" value="patch">
-             <input type="hidden" name="store_id" value="{{selected_store.getId}}">
-             <input type="text" name="name" value="{{selected_store.getName}}">
-             <button class="btn btn-success" type="submit" name="button">Update</button>
-         </form>
-
-         <div class="">
-             <h1>Brands carried by this Store:</h1>
-             {% if selected_brands is  empty%}
-            <h3>This Store currently carries none of our listed brands of shoes. To begin entering brands, please go to <a href="/brands">here</a>or select from the menu below</h3>
-            {% else%}
-             {% for brand in selected_brands %}
-             <a href="/brands/{{brand.getId}}"><p> {{brand.getName}}</p></a>
-             {% endfor %}
-             {% endif %}
-             <form class="" action="/stores/add/{{selected_store.getId}}" method="post">
-                 <h3>Enter Brands to carry at this store:</h3>
+              {% else %}
+              <h1>There are no stores. Please add Stores!</h1>
+              {% endif %}
+              <form action="/stores" method="post">
                  <div class="form-group">
+                     <label  for="">Create New Store:</label>
+                     <input class="form-control" type="text" name="name">
+                     <button class="form-control btn btn-success" type="submit" name="button">Submit</button>
+                 </div>
+              </form>
+              {% if selected_store %}
+              <div class="well">
+                  <p><strong>Store Name: </strong>{{selected_store.getName}} </p>
+                  <form class="" action="/stores/delete" method="post">
+                      <input type="hidden" name="_method" value="delete">
+                      <input type="hidden" name="store_id" value="{{selected_store.getId}}">
+                      <button class="btn btn-danger form-control" type="submit" name="button">Delete</button>
+                  </form>
+                  <form class="" action="/stores/update" method="post">
+                      <label for="">Edit Store Name:</label>
+                      <input type="hidden" name="_method" value="patch">
+                      <input type="hidden" name="store_id" value="{{selected_store.getId}}">
+                      <input type="text" name="name" value="{{selected_store.getName}}">
+                      <button class="btn btn-success" type="submit" name="button">Update</button>
+                  </form>
+
+                  <div class="">
+                      <h1>Brands carried by this Store:</h1>
+                      {% if selected_brands is  empty%}
+                     <h3>This Store currently carries none of our listed brands of shoes. To begin entering brands, please go to <a href="/brands">here</a>or select from the menu below</h3>
+                     {% else%}
+                      {% for brand in selected_brands %}
+                      <a href="/brands/{{brand.getId}}"><p> {{brand.getName}}</p></a>
+                      {% endfor %}
+                      {% endif %}
+                      <form class="" action="/stores/add/{{selected_store.getId}}" method="post">
+                          <h3>Enter Brands to carry at this store:</h3>
+                          <div class="form-group">
+                              <select class="form-control" name="brand_id">
+                                  {%if allBrands is not empty%}
+                                      {% for brand in allBrands%}
+                                      <option value="{{brand.getId}}">{{brand.getName}}</option>
+                                      {% endfor %}
+                                  {% endif %}
+                              </select>
+                          </div>
+                          <button class="btn btn-success form-control"type="submit" name="button">Submit</button>
+                      </form>
+                 </div>
+              </div>
+              <div class="">
+
+                 <form class="" action="/stores/remove/{{selected_store.getId}}" method="post">
+                     <label for="">Remove brands from this store</label>
+                     <input type="hidden" name="_method" value="delete">
                      <select class="form-control" name="brand_id">
-                         {%if allBrands is not empty%}
-                             {% for brand in allBrands%}
+                         {%if selected_brands is not empty%}
+                             {% for brand in selected_brands%}
                              <option value="{{brand.getId}}">{{brand.getName}}</option>
                              {% endfor %}
                          {% endif %}
                      </select>
-                 </div>
-                 <button class="btn btn-success form-control"type="submit" name="button">Submit</button>
-             </form>
-        </div>
-     </div>
-
-     {% endif %}
+                     <button class="btn btn-danger form-control"type="submit" name="button">Remove</button>
+                 </form>
+              </div>
+              {% endif %}
+          </div>
+      </div>
 
   </body>
 </html>

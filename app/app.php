@@ -45,6 +45,11 @@
         $selected_store->addBrand($_POST['brand_id']);
         return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'allBrands'=>Brand::getAll(), 'selected_store'=>$selected_store, 'selected_brands'=>$selected_store->getBrands()));
     });
+    $app->delete("/stores/remove/{id}", function($id) use ($app) {
+        $selected_store = Store::find($id);
+        $selected_store->removeBrand($_POST['brand_id']);
+        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'allBrands'=>Brand::getAll(), 'selected_store'=>$selected_store, 'selected_brands'=>$selected_store->getBrands()));
+    });
 
     $app->delete("/stores/delete", function() use ($app) {
         $selected_store = Store::find($_POST['store_id']);
