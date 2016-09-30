@@ -54,9 +54,77 @@
             $result = Store::getAll();
 
             $this->assertEquals([$test_store], $result);
-
         }
+        function test_getAll()
+        {
+            $id = null;
+            $name = "Famous Footwear";
+            $test_store = new Store($id, $name);
+            $test_store->save();
 
+            $id2 = null;
+            $name2 = "Famous Footwear";
+            $test_store2 = new Store($id2, $name2);
+            $test_store2->save();
 
+            //Acts
+            $result = Store::getAll();
+
+            $this->assertEquals([$test_store, $test_store2], $result);
+        }
+        function test_deleteAll()
+        {
+            $id = null;
+            $name = "Famous Footwear";
+            $test_store = new Store($id, $name);
+            $test_store->save();
+
+            $id2 = null;
+            $name2 = "Famous Footwear";
+            $test_store2 = new Store($id2, $name2);
+            $test_store2->save();
+
+            //Acts
+            Store::deleteAll();
+            $result = Store::deleteAll();
+
+            $this->assertEquals(null, $result);
+        }
+        function test_delete()
+        {
+            $id = null;
+            $name = "Famous Footwear";
+            $test_store = new Store($id, $name);
+            $test_store->save();
+            $test_store->delete();
+
+            $id2 = null;
+            $name2 = "Foot Locker";
+            $test_store2 = new Store($id2, $name2);
+            $test_store2->save();
+
+            //Acts
+            $result = Store::getAll();
+
+            $this->assertEquals([$test_store2], $result);
+        }
+        function test_find()
+        {
+            $id = null;
+            $name = "Famous Footwear";
+            $test_store = new Store($id, $name);
+            $test_store->save();
+            $test_store->delete();
+
+            $id2 = null;
+            $name2 = "Foot Locker";
+            $test_store2 = new Store($id2, $name2);
+            $test_store2->save();
+
+            //Acts
+            $result = Store::getAll();
+
+            $this->assertEquals([$test_store2], $result);
+        }
     }
 ?>
