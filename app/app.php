@@ -63,17 +63,17 @@
       return $app['twig']->render('brands.html.twig', array('allBrands' =>Brand::getAll(), 'selected_brand'=>$selected_brand, 'selected_stores' =>null));
     });
 
+    $app->patch("/brands/{id}", function($id) use ($app) {
+        $selected_brand = Brand::find($id);
+        $selected_brand->update($_POST['name']);
+      return $app['twig']->render('brands.html.twig', array('allBrands' =>Brand::getAll(), 'selected_brand'=>$selected_brand, 'selected_stores' =>null));
+    });
     $app->delete("/brands/delete", function() use ($app) {
         $selected_brand = Brand::find($_POST['brand_id']);
         $selected_brand->delete();
       return $app['twig']->render('brands.html.twig', array('allBrands' =>Brand::getAll(),'selected_brand'=>null, 'selected_stores' =>null));
     });
 
-    $app->patch("/brands/{id}", function($id) use ($app) {
-        $selected_brand = Brand::find($id);
-        $selected_brand->update($_POST['name']);
-      return $app['twig']->render('brands.html.twig', array('allBrands' =>Brand::getAll(), 'selected_brand'=>$selected_brand, 'selected_stores' =>null));
-    });
 
     return $app;
 ?>

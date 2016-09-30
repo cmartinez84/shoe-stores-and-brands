@@ -6,6 +6,8 @@
     */
 
     require_once "src/Brand.php";
+    require_once "src/Store.php";
+
 
     $server = 'mysql:host=localhost:8889;dbname=shoes_test';
     $username = 'root';
@@ -15,9 +17,10 @@
 
     class BrandTest extends PHPUnit_Framework_TestCase
     {
-        // protected function tearDown(){
-        //         Brand::deleteAll();
-        // }
+        protected function tearDown(){
+                Brand::deleteAll();
+                Store::deleteAll();
+        }
         function test_getName()
         {
             //Arange
@@ -128,7 +131,6 @@
             $test_brand_id = $test_brand->getId();
             //Act
             $result = Brand::find($test_brand_id);
-            var_dump($result);
             //Assert
             $this->assertEquals($test_brand, $result);
         }
@@ -148,7 +150,26 @@
 
             //Assert
             $this->assertEquals($new_name, $result);
+        }
+        function test_addStore()
+        {
+            //Act
+            $id = null;
+            $brand_name = "Nike";
+            $test_brand = new Brand($id, $brand_name);
+            $test_brand->save();
+            $store_name = "Shoe Store";
+            $test_store = new Store($id, $store_name);
+            $test_store->save();
+            $test_store_id = $test_store->getId();
 
+            //Act
+            $test_brand->addStore($test_store_id);
+
+            $result = $test_brand->getStores();
+
+            //Assert
+            $this->assertEquals([$test_store], $result);
         }
     }
 ?>
