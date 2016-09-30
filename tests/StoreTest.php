@@ -86,9 +86,9 @@
 
             //Acts
             Store::deleteAll();
-            $result = Store::deleteAll();
+            $result = Store::getAll();
 
-            $this->assertEquals(null, $result);
+            $this->assertEquals([], $result);
         }
         function test_delete()
         {

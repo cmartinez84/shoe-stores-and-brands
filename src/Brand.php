@@ -1,6 +1,6 @@
 <?php
 
-    class Stylist
+    class Brand
     {
         private $id;
         private $name;
@@ -16,7 +16,7 @@
         }
         function getName()
         {
-            return $this->getName();
+            return $this->name;
         }
         function setName($new_name)
         {
@@ -31,7 +31,7 @@
         {
             $GLOBALS['DB']->exec("DELETE FROM brands WHERE id={$this->getId()};");
         }
-        function update()
+        function update($new_name)
         {
             $GLOBALS['DB']->exec("UPDATE brands SET name ='{$new_name}' WHERE id={$this->getId()};");
         }
@@ -54,7 +54,7 @@
         }
         static function find($search_id)
         {
-            $all_brands = Brand::getAll()
+            $all_brands = Brand::getAll();
             foreach($all_brands as $brand){
                 if($brand->getId() == $search_id){
                     $found_brand = $brand;

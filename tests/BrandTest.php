@@ -5,92 +5,153 @@
     * @backupStaticAttributes disabled
     */
 
-    require_once "src/Client.php";
+    require_once "src/Brand.php";
 
-    $server = 'mysql:host=localhost:8889;dbname=stylists_test';
+    $server = 'mysql:host=localhost:8889;dbname=shoes_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
 
 
-    class ClientTest extends PHPUnit_Framework_TestCase
+    class BrandTest extends PHPUnit_Framework_TestCase
     {
         protected function tearDown(){
-            Client::deleteAll();
+                Brand::deleteAll();
         }
-
         function test_getName()
         {
-            //Arrange
-            $id = 33;
-            $name = "bob";
-            $last_appointment = "11-14-2011";
-            $next_appointment = "11-11-3011";
-            $stylist_id = 10;
-            $test_client= new Client($id, $name, $last_appointment, $next_appointment, 10);
+            //Arange
+            $id = null;
+            $name = "Nike";
+            $test_brand = new Brand($id, $name);
+
             //Act
-            $result = $test_client->getName();
+            $result = $test_brand->getName();
+
             //Assert
             $this->assertEquals($name, $result);
         }
+        function test_getId()
+        {
+            //Arange
+            $id = null;
+            $name = "Nike";
+            $test_brand = new Brand($id, $name);
+            $test_brand->save();
 
-        function test_getId(){
-            $test_client = new Client(null, "bob", "1-11-2111", "2-22-2122", 10);
-            $test_client->save();
+            //Act
+            $result = $test_brand->getName();
 
-
-            $client_id = $test_client->getId();
-            $result = is_numeric($client_id);
-            // var_dump($test_client);
-            $this->assertEquals(true, $result);
-        }
-        function test_save(){
-            $test_client = new Client(null, "bob", "1-11-2111", "2-22-2122", 10);
-            $test_client->save();
-
-            $all_clients = Client::getAll();
-            $result = $all_clients[0];
-            // var_dump($test_client);
-
-            $this->assertEquals($test_client, $result);
-        }
-        function test_find(){
-            $test_client = new Client(null, "bob", "1-11-2111", "2-22-2122", 10);
-            $test_client2 = new Client(null, "bob", "1-11-2111", "2-22-2122", 10);
-            $test_client->save();
-            $test_client2->save();
-            $search_id = $test_client2->getId();
-
-            $result = Client::find($search_id);
-
-            $this->assertEquals($test_client2, $result);
+            //Assert
+            $this->assertEquals($name, $result);
 
         }
-        function test_delete(){
-            $test_client = new Client(null, "bob", "1-11-2111", "2-22-2122", 10);
-            $test_client2 = new Client(null, "bob", "1-11-2111", "2-22-2122", 10);
-            $test_client->save();
-            $test_client2->save();
+        function test_save()
+        {
+            //Arange
+            $id = null;
+            $name = "Nike";
+            $test_brand = new Brand($id, $name);
+            $test_brand->save();
 
-            $test_client->delete();
-            $result = Client::getAll();
+            //Act
+            $result = Brand::getAll();
 
-            $this->assertEquals([$test_client2], $result);
+            //Assert
+            $this->assertEquals([$test_brand], $result);
 
+        }
+        function test_getAll()
+        {
+            //Arange
+            $id = null;
+            $name = "Nike";
+            $test_brand = new Brand($id, $name);
+            $test_brand->save();
+
+            $id2 = null;
+            $name2 = "Nike";
+            $test_brand2 = new Brand($id2, $name2);
+            $test_brand2->save();
+
+            //Act
+            $result = Brand::getAll();
+
+            //Assert
+            $this->assertEquals([$test_brand,$test_brand2], $result);
+        }
+        function test_deleteAll()
+        {
+        //Arange
+            $id = null;
+            $name = "Nike";
+            $test_brand = new Brand($id, $name);
+            $test_brand->save();
+
+            $id2 = null;
+            $name2 = "Nike";
+            $test_brand2 = new Brand($id2, $name2);
+            $test_brand2->save();
+
+            //Act
+            Brand::deleteAll();
+            $result = Brand::getAll();
+
+            //Assert
+            $this->assertEquals([], $result);
+        }
+        function test_delete()
+        {
+            $id = null;
+            $name = "Nike";
+            $test_brand = new Brand($id, $name);
+            $test_brand->save();
+            $test_brand->delete();
+
+            $id2 = null;
+            $name2 = "Nike";
+            $test_brand2 = new Brand($id2, $name2);
+            $test_brand2->save();
+
+            //Act
+            $result = Brand::getAll();
+
+            //Assert
+            $this->assertEquals([$test_brand2], $result);
+        }
+        function test_find()
+        {
+            $id = null;
+            $name = "Nike";
+            $test_brand = new Brand($id, $name);
+            $test_brand->save();
+            $test_brand_id = $test_brand->getId();
+
+
+            //Act
+            $result = Brand::find($test_brand_id);
+            var_dump($result);
+            //Assert
+            $this->assertEquals($test_brand, $result);
         }
         function test_update(){
-            $test_client = new Client(null, "bob", "1-11-2111", "2-22-2122", 10);
-            $test_client->save();
-            $test_client_id = $test_client->getId();
-            $new_name = "barbara";
-            $new_last_apppointment = "5-5-55";
-            $new_next_appointment = "9-9-99";
+            //Act
+            $id = null;
+            $name = "Nike";
+            $test_brand = new Brand($id, $name);
+            $test_brand->save();
+            $test_brand_id = $test_brand->getId();
 
-            $test_client->update($new_name, $new_last_apppointment,  $new_next_appointment);
-            $altered_client = Client::find($test_client_id);
-            $altered_name = $altered_client->getName();
+            //Act
+            $new_name = "Adidas";
+            $test_brand->update($new_name);
+            $altered_brand = Brand::find($test_brand_id);
+            $result = $altered_brand->getName();
 
-            $this->assertEquals($new_name, $altered_name);
+            //Assert
+            $this->assertEquals($new_name, $result);
+
         }
+
     }
 ?>
