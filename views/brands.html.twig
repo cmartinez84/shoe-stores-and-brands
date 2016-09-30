@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+    <body>
+        <div class="container">
+            {% if allBrands is not empty%}
+            <div class="well">
+                <h1>Here is a list of all our brands</h1>
+                <ul>
+                    {% for brand in allBrands %}
+                    <a href="/brands/{{brand.getId}}"><li>{{brand.getName}}</li></a>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {%else%}
+            <div class="well">
+                <h1>Here is a list of all our brands</h1>
+                <h1>There are currently no brands listed</h1>
+            </div>
+            {% endif %}
+            <div class="well">
+                <label for="">Add a new brand:</label>
+                <form class="" action="/brands" method="post">
+                    <div class="form-group">
+                        <label for="">Name:</label>
+                        <input type="text" name="name" value="">
+                        <button type="submit" name="button">Submit</button>
+                    </div>
+                </form>
+            </div>
+
+
+        </div>
+    </body>
+
+</html>
