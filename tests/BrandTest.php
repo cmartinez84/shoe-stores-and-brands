@@ -126,8 +126,6 @@
             $test_brand = new Brand($id, $name);
             $test_brand->save();
             $test_brand_id = $test_brand->getId();
-
-
             //Act
             $result = Brand::find($test_brand_id);
             var_dump($result);
@@ -152,6 +150,5 @@
             $this->assertEquals($new_name, $result);
 
         }
-
     }
 ?>
