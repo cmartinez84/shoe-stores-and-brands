@@ -40,7 +40,25 @@
                         <input type="hidden" name="brand_id" value="{{selected_brand.getId}}">
                         <button class="btn btn-danger form-control" type="submit" name="button">Delete</button>
                     </form>
+                    <form class="" action="/brands/{{selected_brand.getId}}" method="post">
+                        <input type="hidden" name="_method" value="patch">
+                        <label for="">Edit Information:</label>
+                        <div class="form-group">
+                            <label for="">Edit Name:</label>
+                            <input type="hidden" name="brand_id" value="{{selected_brand.getId}}">
+                            <input type="text" name="name" value="{{selected_brand.getName}}">
+                            <button class="form-control btn btn-success" type="submit" name="button">Update</button>
+                        </div>
+                    </form>
             </div>
+            {%if selected_stores is not empty%}
+            <h3>Stores that carry this brand:</h3>
+                <ul>
+                    {% for store in selected_stores%}
+                    <a href="/store/{{store.getId}}"><li>{{store.getName}}</li></a>
+                    {% endfor %}
+                </ul>
+                {% endif %}
             {% endif %}
 
 
