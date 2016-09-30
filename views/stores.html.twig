@@ -16,5 +16,13 @@
      {% else %}
      <h1>There are no stores. Please add Stores!</h1>
      {% endif %}
+     <form action="/stores" method="post">
+<div class="form-group">
+    <label  for="">Create New Store:</label>
+    <input class="form-control" type="text" name="name">
+    <button class="form-control btn btn-success" type="submit" name="button">Submit</button>
+
+</div>
+     </form>
   </body>
 </html>

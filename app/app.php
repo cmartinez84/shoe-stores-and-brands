@@ -30,6 +30,11 @@
       return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll()));
     });
 
+    $app->post("/stores", function() use ($app) {
+        $new_store = new Store(null, $_POST['name']);
+        $new_store->save();
+        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll()));
+    });
 
     return $app;
 ?>
