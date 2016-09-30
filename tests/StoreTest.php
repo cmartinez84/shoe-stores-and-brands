@@ -6,6 +6,7 @@
     */
 
     require_once "src/Store.php";
+    require_once "src/Brand.php";
 
 
     $server = 'mysql:host=localhost:8889;dbname=shoes_test';
@@ -16,10 +17,11 @@
 
     class StoreTest extends PHPUnit_Framework_TestCase
     {
-        // protected function teardown()
-        // {
-        //     Store::deleteAll();
-        // }
+        protected function teardown()
+        {
+            Store::deleteAll();
+            Brand::deleteAll();
+        }
         function test_getName()
         {
             //Arrange
@@ -142,6 +144,76 @@
             $result = $updated_store->getName();
 
             $this->assertEquals("Target", $result);
+        }
+        function test_addBrand()
+        {
+            $id = null;
+            $name = "Famous Footwear";
+            $test_store = new Store($id, $name);
+            $test_store->save();
+            $test_store_id = $test_store->getId();
+
+            $brand_name = "Sketchers";
+            $test_brand = new Brand($id, $brand_name);
+            $test_brand->save();
+            $test_brand_id = $test_brand->getId();
+            //Act
+            $test_store->addBrand($test_brand_id);
+            $result = $test_store->getBrands();
+
+
+            $this->assertEquals([$test_brand], $result);
+        }
+        function test_getBrands()
+        {
+            $id = null;
+            $name = "Famous Footwear";
+            $test_store = new Store($id, $name);
+            $test_store->save();
+            $test_store_id = $test_store->getId();
+
+            $brand_name = "Sketchers";
+            $test_brand = new Brand($id, $brand_name);
+            $test_brand->save();
+            $test_brand_id = $test_brand->getId();
+
+            $brand_name2 = "Sketchers";
+            $test_brand2 = new Brand($id2, $brand_name2);
+            $test_brand2->save();
+            $test_brand_id2 = $test_brand2->getId();
+
+            $test_store->addBrand($test_brand_id);
+            $test_store->addBrand($test_brand_id2);
+            //Act
+            $result = $test_store->getBrands();
+
+            $this->assertEquals([$test_brand, $test_brand2], $result);
+        }
+        function test_deleteBrand()
+        {
+            $id = null;
+            $name = "Famous Footwear";
+            $test_store = new Store($id, $name);
+            $test_store->save();
+            $test_store_id = $test_store->getId();
+
+            $brand_name = "Sketchers";
+            $test_brand = new Brand($id, $brand_name);
+            $test_brand->save();
+            $test_brand_id = $test_brand->getId();
+
+            $brand_name2 = "Sketchers";
+            $test_brand2 = new Brand($id2, $brand_name2);
+            $test_brand2->save();
+            $test_brand_id2 = $test_brand2->getId();
+
+            $test_store->addBrand($test_brand_id);
+            $test_store->addBrand($test_brand_id2);
+            //Act
+            $test_store->removeBrand($test_brand_id2);
+            $result = $test_store->getBrands();
+
+            $this->assertEquals([$test_brand], $result);
         }
     }
 ?>
