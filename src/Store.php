@@ -1,7 +1,7 @@
 <?php
     Class Store
     {
-        private $id
+        private $id;
         private $name;
 
         function __construct($id=null, $name)
@@ -15,7 +15,7 @@
         }
         function getName()
         {
-            return $this->getName();
+            return $this->name;
         }
         function setName($new_name)
         {
