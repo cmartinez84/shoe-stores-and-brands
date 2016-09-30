@@ -4,91 +4,63 @@
     {
         private $id;
         private $name;
-        private $date_began;
-        private $specialty;
 
-        function __construct($id=null, $name, $date_began, $specialty="none"){
+        function __construct($id, $name)
+        {
             $this->id = $id;
             $this->name = $name;
-            $this->date_began = $date_began;
-            $this->specialty = $specialty;
         }
-        function getId(){
+        function getId()
+        {
             return $this->id;
         }
-        function getName(){
-            return $this->name;
+        function getName()
+        {
+            return $this->getName();
         }
-        function setName($new_name){
+        function setName($new_name)
+        {
             $this->name = $new_name;
         }
-        function getDate_began(){
-            return $this->date_began;
-        }
-        function setDate_began($new_date_began){
-            $this->date_began = $new_date_began;
-        }
-        function getSpecialty(){
-            return $this->specialty;
-        }
-        function setSpecialty($new_specialty){
-            $this->specialty = $new_specialty;
-        }
-        function save(){
-            $GLOBALS['DB']->exec("INSERT INTO stylist (name, date_began, specialty) VALUES (
-                '{$this->name}',
-                '{$this->date_began}',
-                '{$this->specialty}'
-            );");
+        function save()
+        {
+            $GLOBALS['DB']->exec("INSERT INTO brands (name) VALUES ('{$this->getName()}');");
             $this->id = $GLOBALS['DB']->lastInsertId();
         }
-        function delete(){
-            $GLOBALS['DB']->exec("DELETE FROM stylist WHERE id={$this->getid()};");
+        function delete()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM brands WHERE id={$this->getId()};");
         }
-        function getClients($search_id){
-            $all_clients = Client::getAll();
-            $matched_clients = array();
-            foreach($all_clients as $client){
-                if($client->getStylistId() == $search_id){
-                    array_push($matched_clients, $client);
+        function update()
+        {
+            $GLOBALS['DB']->exec("UPDATE brands SET name ='{$new_name}' WHERE id={$this->getId()};");
+        }
+        static function getAll()
+        {
+            $returned_brands = $GLOBALS['DB']->query("SELECT * FROM brands;");
+            $brands = array();
+            foreach($returned_brands as $brand)
+            {
+                $id = $brand['id'];
+                $name = $brand['name'];
+                $new_brand = new Brand($id, $name);
+                array_push($brands, $new_brand);
+            }
+            return $brands;
+        }
+        static function deleteAll()
+        {
+            $GLOBALS['DB']->exec("DELETE FROM brands;");
+        }
+        static function find($search_id)
+        {
+            $all_brands = Brand::getAll()
+            foreach($all_brands as $brand){
+                if($brand->getId() == $search_id){
+                    $found_brand = $brand;
                 }
             }
-            return $matched_clients;
-        }
-
-        static function find($search_id){
-
-            $returned_stylists = Stylist::getAll();
-            foreach($returned_stylists as $stylist){
-                $stylist_id = $stylist->getId();
-                if($stylist_id == $search_id){
-                    $found_stylist = $stylist;
-                }
-            }
-            return $found_stylist;
-        }
-        static function getAll(){
-            $returned_stylists = $GLOBALS['DB']->query("SELECT * FROM stylist");
-            $stylists= array();
-            foreach ($returned_stylists as $stylist) {
-                $id = $stylist['id'];
-                $name = $stylist['name'];
-                $date_began = $stylist['date_began'];
-                $specialty = $stylist['specialty'];
-                $new_stylist = new Stylist($id, $name, $date_began, $specialty);
-                array_push($stylists, $new_stylist);
-            }
-            return $stylists;
-        }
-        static function deleteAll(){
-            $GLOBALS['DB']->exec("DELETE FROM stylist;");
-        }
-        function update($name, $date_began, $specialty){
-            $GLOBALS['DB']->exec("UPDATE stylist SET
-                name ='$name',
-                date_began = '$date_began',
-                specialty = '$specialty'
-                WHERE id ='{$this->getId()}';");
+            return $found_brand;
         }
     }
 ?>
