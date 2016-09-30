@@ -31,7 +31,24 @@
              <input type="hidden" name="store_id" value="{{selected_store.getId}}">
              <button class="btn btn-danger form-control" type="submit" name="button">Delete</button>
          </form>
+         <form class="" action="/stores/update" method="post">
+             <label for="">Edit Store Name:</label>
+             <input type="hidden" name="_method" value="patch">
+             <input type="hidden" name="store_id" value="{{selected_store.getId}}">
+             <input type="text" name="name" value="{{selected_store.getName}}">
+             <button class="btn btn-success" type="submit" name="button">Update</button>
+         </form>
+         {% if selected_brands is not empty%}
+         <div class="">
+             {% for brand in selected_brands %}
+             <a href="/brands/{{brand.getId}}"><p> {{brand.getName}}</p></a>
+             {% endfor %}
+         </div>
+         {% else%}
+         <h1>This Store currently carries none of our listed brands of shoes. To begin entering brands, please go <a href="/brands">here</a></h1>
+         {% endif %}
      </div>
+
      {% endif %}
 
   </body>

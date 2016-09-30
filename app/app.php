@@ -27,22 +27,27 @@
     });
 
     $app->get("/stores", function() use ($app) {
-      return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'selected_store' =>null));
+      return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'selected_store' =>null, 'selected_brands'=>null));
     });
 
     $app->post("/stores", function() use ($app) {
         $new_store = new Store(null, $_POST['name']);
         $new_store->save();
-        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'selected_store' =>null));
+        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'selected_store' =>null, 'selected_brands'=>null));
     });
     $app->get("/stores/{id}", function($id) use ($app) {
         $selected_store = Store::find($id);
-        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'selected_store'=>$selected_store));
+        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'selected_store'=>$selected_store, 'selected_brands'=>null));
     });
     $app->delete("/stores/delete", function() use ($app) {
         $selected_store = Store::find($_POST['store_id']);
         $selected_store->delete();
-        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'selected_store'=>null));
+        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'selected_store'=>null, 'selected_brands'=>null));
+    });
+    $app->patch("/stores/update", function() use ($app) {
+        $selected_store = Store::find($_POST['store_id']);
+        $selected_store->update($_POST['name']);
+        return $app['twig']->render('stores.html.twig', array('allStores' => Store::getAll(), 'selected_store'=>$selected_store, 'selected_brands'=>null));
     });
 
 
