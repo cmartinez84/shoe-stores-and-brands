@@ -121,10 +121,27 @@
             $test_store2 = new Store($id2, $name2);
             $test_store2->save();
 
-            //Acts
+            //Act
             $result = Store::getAll();
 
             $this->assertEquals([$test_store2], $result);
+        }
+        function test_update()
+        {
+            $id = null;
+            $name = "Famous Footwear";
+            $test_store = new Store($id, $name);
+            $test_store->save();
+            $test_store_id = $test_store->getId();
+
+            $new_name = "Target";
+            $test_store->update($new_name);
+
+            //Act
+            $updated_store = Store::find($test_store_id);
+            $result = $updated_store->getName();
+
+            $this->assertEquals("Target", $result);
         }
     }
 ?>
