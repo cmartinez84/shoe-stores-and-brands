@@ -72,22 +72,27 @@
 
     $app->get("/brands/{id}", function($id) use ($app) {
         $selected_brand = Brand::find($id);
-        $selected_stores = $selected_brand->getStores();
-        var_dump($selected_stores);
-      return $app['twig']->render('brands.html.twig', array('allBrands' =>Brand::getAll(), 'selected_brand'=>$selected_brand, 'selected_stores'=> $selected_stores));
+      return $app['twig']->render('brands.html.twig', array('allBrands' =>Brand::getAll(),'allStores' =>Store::getAll(), 'selected_brand'=>$selected_brand, 'selected_stores'=> $selected_brand->getStores()));
     });
 
     $app->patch("/brands/{id}", function($id) use ($app) {
         $selected_brand = Brand::find($id);
         $selected_brand->update($_POST['name']);
-        $selected_stores = $selected_brand->getStores();
-      return $app['twig']->render('brands.html.twig', array('allBrands' =>Brand::getAll(), 'selected_brand'=>$selected_brand,  'selected_stores'=> $selected_stores));
+      return $app['twig']->render('brands.html.twig', array('allBrands' =>Brand::getAll(), 'allStores' =>Store::getAll(), 'selected_brand'=>$selected_brand,  'selected_stores'=> $selected_brand->getStores()));
     });
+
+    $app->post("/brands/add_store/{id}", function($id) use ($app) {
+        $selected_brand = Brand::find($id);
+        $selected_brand->addStore($_POST['store_id']);
+      return $app['twig']->render('brands.html.twig', array('allBrands' =>Brand::getAll(), 'allStores' =>Store::getAll(), 'selected_brand'=>$selected_brand,  'selected_stores'=> $selected_brand->getStores()));
+    });
+
+
 
     $app->delete("/brands/delete", function() use ($app) {
         $selected_brand = Brand::find($_POST['brand_id']);
         $selected_brand->delete();
-      return $app['twig']->render('brands.html.twig', array('allBrands' =>Brand::getAll(),'selected_brand'=>null, 'selected_stores' =>null));
+      return $app['twig']->render('brands.html.twig', array('allBrands' =>Brand::getAll(),'allStores' =>Store::getAll(),'selected_brand'=>null, 'selected_stores' =>null));
     });
 
 
