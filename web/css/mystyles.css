@@ -1,4 +1,47 @@
+body{
+    background: url('/img/background.jpg') center center no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
 .well{
-    width: 50%;
+    width: 60%;
     margin: auto; 0;
+}
+.sidebar{
+    position: fixed;
+    left: 0;
+    height: 100%;
+    width: 27%;
+    text_align: center;
+}
+img{
+    max-width: 85%;
+}
+.welcome_button{
+
+}
+
+.welcome{
+    width: 70%;
+    font-family: 'Roboto Mono', monospace !important;
+    text-shadow: 1px 1px 19px   rgba(0, 0, 0, 0.7);
+    font-size: 6em;
+    position: fixed;
+    right: 0px;
+    height: 100%;
+    margin: 0px;
+    color: white;
+}
+
+.welcome_button{
+    border: 1px solid;
+    width: 75%;
+    padding: 10px;
+    text-align: center;
+
+}
+.welcome_button:hover{
+    background: black;
+    box-shadow: 2px 2px 1px 0px grey;
+    transition: all .3s;
 }

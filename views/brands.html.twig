@@ -79,6 +79,19 @@
             </div>
             <button class="form-control btn btn-success" type="submit" name="button">Add</button>
         </form>
+        <form class="" action="/brands/remove_store/{{selected_brand.getId}}" method="post">
+            <label for="">Remove Store:</label>
+            <input type="hidden" name="_method" value="delete">
+            <select class="form-control" name="store_id">
+                {% if selected_stores is not empty %}
+                    {% for store in selected_stores %}
+                    <option value="{{store.getId}}">{{store.getName}}</option>
+                    {% endfor %}
+                {% endif %}
+            </select>
+            <button class="btn btn-danger form-control" type="submit" name="button">Remove</button>
+
+        </form>
       </div>
       {% endif %}<!-- end ifselected brand -->
 

@@ -26,7 +26,7 @@
                  </div>
               </form>
               {% if selected_store %}
-              <div class="well">
+              <div class="">
                   <p><strong>Store Name: </strong>{{selected_store.getName}} </p>
                   <form class="" action="/stores/delete" method="post">
                       <input type="hidden" name="_method" value="delete">
@@ -44,7 +44,7 @@
                   <div class="">
                       <h1>Brands carried by this Store:</h1>
                       {% if selected_brands is  empty%}
-                     <h3>This Store currently carries none of our listed brands of shoes. To begin entering brands, please go to <a href="/brands">here</a>or select from the menu below</h3>
+                     <h3>This Store currently carries none of our listed brands of shoes. To begin entering brands, please go to <a href="/brands">here</a> or select from the menu below</h3>
                      {% else%}
                       {% for brand in selected_brands %}
                       <a href="/brands/{{brand.getId}}"><p> {{brand.getName}}</p></a>
