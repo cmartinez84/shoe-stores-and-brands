@@ -7,7 +7,8 @@
   </head>
   <body>
       <div class="sidebar well">
-          <img id="logo" src="/img/logo.png" alt="" />
+          <a href="/"> <img id="logo" src="/img/logo.png" alt="" />
+</a>
           <h3 class="font1">Shoe Distrobution</h3>
           <p>Click on one of the buttons below to view distribution either by store or by brands</p>
           <div class="">
@@ -19,26 +20,24 @@
 
       <div class="content2">
             <div>
-                <h1>Home > Brands
+                <h1><a href="/">Home</a>
+                     > Brands
                 {% if selected_brand %}
                     > {{selected_brand.getName}}
                 {% endif %}
                </h1>
-
+               {% if selected_brand %}
                  <div class="row">
                      <h2>Stores that carry this brand:</h2>
                      {% if selected_stores %}
                      <ul class ="allBrands">
                         {% for store in selected_stores %}
                         <a href="/stores/{{store.getId}}"><li>{{store.getName}}</li></a>
-
                         {% endfor %}
                      </ul>
                      {% else %}
-                     <h3> This brand is currently not carried by any of our member stores. Please select from below to enter stores. If you do not see a store you wish to be added, please go to our <a href="/brands">stores</a> and make an entry.</h3>
+                     <h3> This brand is currently not carried by any of our member stores. Please select from below to enter stores. If you do not see a store you wish to be added, please go to our <span class="nav-link"><a href="/brands">stores</a> page</span> to enter your desired store.</h3>
                      {% endif %}
-
-
                 </div>
                 <div class="row">
                     <div class=" col-sm-6">
@@ -46,9 +45,8 @@
                         <h2 for="">Edit information:</h2>
                         <form class="" action="/brands/{{selected_brand.getId}}" method="post">
                           <input type="hidden" name="_method" value="patch">
-                          <label for="">Edit Brand Information:</label>
                           <div class="form-group">
-                            <label for="">Edit Name:</label>
+                            <label for="">Edit Brand Name:</label>
                             <input type="hidden" name="brand_id" value="{{selected_brand.getId}}">
                             <input class="form-control" type="text" name="name" value="{{selected_brand.getName}}">
                             <button class="form-control btn btn-success" type="submit" name="button">Update</button>
@@ -57,6 +55,7 @@
                         <form class="" action="/brands/delete" method="post">
                         <input type="hidden" name="_method" value="delete">
                         <input type="hidden" name="brand_id" value="{{selected_brand.getId}}">
+                        <label for="">Delete brand:</label>
                         <button class="btn btn-danger form-control" type="submit" name="button">Delete</button>
                       </form>
                       {% endif %}
@@ -65,8 +64,8 @@
 
                     <div class=" col-sm-6">
                         <form class="" action="/brands/add_store/{{selected_brand.getid}}" method="post">
-                            <h2 for="">Add a store to this brand's distribution</h2>
-                            <div class="form-group">
+                            <h3 for="">Add a store to this brand's distribution</h3>
+
                                 <select class="form-control" name="store_id">
                                     {% if allStores is not empty %}
                                         {% for store in allStores %}
@@ -74,7 +73,7 @@
                                         {% endfor %}
                                     {% endif %}
                                 </select>
-                            </div>
+
                             <button class="form-control btn btn-success" type="submit" name="button">Add</button>
                         </form>
                         <form class="" action="/brands/remove_store/{{selected_brand.getId}}" method="post">
@@ -91,20 +90,17 @@
 
                         </form>
 
-                        <!-- enter brands to carry here
-                        and remove brands here -->
                     </div>
-
                 </div>
                 <!-- end second row -->
-
+                {% endif %}
                  <div class="row">
 
-                     <div class="col-sm-7">
+                     <div class="col-sm-8">
                          {% if allBrands is not empty%}
                          <div class="">
-                           <h1>Here is a list of all our brands</h1>
-                           <ul>
+                           <h1>All Brands</h1>
+                           <ul class="allStores">
                              {% for brand in allBrands %}
                              <a href="/brands/{{brand.getId}}">
                                <li>{{brand.getName}}</li>
@@ -113,8 +109,8 @@
                            </ul>
                          </div>
                          {%else%}
-                         <div class="well">
-                           <h1>Here is a list of all our brands</h1>
+                         <div class="">
+                           <h1>No brands listed in stock. Please begin adding brands in the column to the right</h1>
                          </div>
                          {% endif %}
 

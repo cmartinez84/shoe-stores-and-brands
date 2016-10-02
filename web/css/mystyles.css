@@ -6,6 +6,16 @@ body{
 h1{
     color: white;
 }
+ul{
+    list-style: none;
+}
+a{
+    color: inherit;
+ }
+ .nav-link
+ {
+     text-decoration: underline;
+ }
 .row{
     background: rgba(0,0,0, 0.5);
     margin: 30px auto;
@@ -27,7 +37,7 @@ h1{
 #logo{
     max-width: 85%;
 }
-.allStores, .allBrands{
+ul{
 -moz-column-count: 6;
 -moz-columns: 6;
 -webkit-columns: 6;
@@ -56,16 +66,23 @@ columns: 6;
     /*color: white;*/
 
 }
-
+.btn{
+    background: black!important;
+}
+.btn:hover{
+    background: white !important;
+    color: black;
+}
 .welcome_button{
     border: 1px solid;
     width: 75%;
     padding: 10px;
     text-align: center;
-
 }
+
 .welcome_button:hover{
     background: black;
-    box-shadow: 2px 2px 1px 0px grey;
+    box-shadow: 1px 1px 1px 0px grey;
     transition: all .3s;
+    color: white;
 }

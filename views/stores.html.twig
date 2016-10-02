@@ -27,7 +27,7 @@
                  <div class="row">
                      <h2>Brands carried by this Store:</h2>
                      {% if selected_brands is  empty%}
-                    <h3>This Store currently carries none of our listed brands of shoes. To begin entering brands, please go to our  <a href="/brands"> brands</a> page or select from the menu below.</h3>
+                    <h3>This store currently carries none of our listed brands of shoes. To begin entering brands, select from the options below. If a store you don't see a store you wish to be listed, please go to our  <span class="nav-link"><a href="/brands"> brands</a></span> page or and your desired brand.</h3>
                     {% else%}
                      {% for brand in selected_brands %}
                      <a href="/brands/{{brand.getId}}"><p> {{brand.getName}}</p></a>
