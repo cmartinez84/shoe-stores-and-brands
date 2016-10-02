@@ -26,14 +26,14 @@ _This app will allow the user to manage relationships between store brands and t
 * _Begin MAMP_
 * _Initialize new Database by doing the following:_
 * _Begin MySql Shell by running $ /Applications/MAMP/Library/bin/mysql --host=localhost -uroot -proot_
-* _CREATE DATABASE stylists_
+* _CREATE DATABASE shoes_
 * _USE shoes
 * _CREATE TABLE stores (id serial PRIMARY KEY, name VARCHAR(255))_
 * _CREATE TABLE brands (id SERIAL PRIMARY KEY, name VARCHAR(255))_
 * _CREATE TABLE brands_stores (id SERIAL PRIMARY KEY, store_id INT, brand_id INT))_
 
-* _Alternatively, unzip the database contained at the top level of this folder and import from phpmyadmin (http://localhost:8888/phpmyadmin/)_
-* _in phpmyadmin, you may have also create another database for use with phpunit tests files by going to Operations> Copy Database To> and renaming database "shoes_brands" and chooosing "structure only"_
+* _Alternatively, unzip the databases (both shoes and shoes_test) contained at the top level of this folder and import from phpmyadmin (http://localhost:8888/phpmyadmin/)_
+* _in phpmyadmin, you may have also create another database for use with phpunit tests files by going to Operations> Copy Database To> and renaming database "shoes_brands" and choosing "structure only"_
 
 * _Change localhost routing in app.php (and php documents in tests folder) to localhost enabled for mySQL. ex mysql:...host=localhost:8889;dbname=....in MAMP, you can find this by going to  MAMP > Preferences > Ports> MySql Port_
 * _In terminal, navigate to web folder (shoes > web) and begin running local server _

@@ -1,5 +1,4 @@
 <?php
-// ./vendor/bin/phpunit tests
     /**
     * @backupGlobals disabled
     * @backupStaticAttributes disabled
