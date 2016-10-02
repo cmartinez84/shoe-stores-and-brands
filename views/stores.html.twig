@@ -6,7 +6,7 @@
   </head>
   <body>
       <div class="sidebar well">
-          <img id="logo" src="/img/logo.png" alt="" />
+          <a href="/"><img id="logo" src="/img/logo.png" alt="" /></a>
           <h3 class="font1">Shoe Distrobution</h3>
           <p>Click on one of the buttons below to view distribution either by store or by brands</p>
           <div class="">
@@ -18,7 +18,7 @@
 
       <div class="content2">
             <div>
-                <h1>Home > Stores
+                <h1><a href="/">Home</a> > Stores
                 {% if selected_store %}
                     > {{selected_store.getName}}
                 {% endif %}
@@ -46,6 +46,7 @@
                             <button class="btn btn-success form-control" type="submit" name="button">Update</button>
                         </form>
                         <form class="" action="/stores/delete" method="post">
+                            <label for="">Delete store:</label>
                             <input type="hidden" name="_method" value="delete">
                             <input type="hidden" name="store_id" value="{{selected_store.getId}}">
                             <button class="btn btn-danger form-control" type="submit" name="button">Delete</button>
@@ -55,7 +56,7 @@
                     <div class=" col-sm-6">
                         <form class="" action="/stores/add/{{selected_store.getId}}" method="post">
                             <h3>Enter Brands to carry at this store:</h3>
-                            <div class="form-group">
+
                                 <select class="form-control" name="brand_id">
                                     {%if allBrands is not empty%}
                                         {% for brand in allBrands%}
@@ -63,11 +64,11 @@
                                         {% endfor %}
                                     {% endif %}
                                 </select>
-                            </div>
+
                             <button class="btn btn-success form-control"type="submit" name="button">Submit</button>
                         </form>
                         <form class="" action="/stores/remove/{{selected_store.getId}}" method="post">
-                            <label for="">Remove brands from this store</label>
+                            <h3 for="">Remove brands from this store</h3>
                             <input type="hidden" name="_method" value="delete">
                             <select class="form-control" name="brand_id">
                                 {%if selected_brands is not empty%}
@@ -85,8 +86,8 @@
                  {% endif%}
                  <div class="row">
 
-                     <div class="col-sm-7">
-                         <h1>Stores</h1>
+                     <div class="col-sm-8">
+                         <h1>All Stores</h1>
                          {% if allStores is not empty%}
                             <ul class="allStores">
                                 {% for store in allStores%}
@@ -101,8 +102,9 @@
                      </div>
                      <div class="col-sm-4">
                          <form action="/stores" method="post">
+                             <h3>Enter a new store</h3>
                             <div class="form-group">
-                                <label  for="">Create New Store:</label>
+                                <label  for="">Enter Store Name:</label>
                                 <input class="form-control" type="text" name="name">
                                 <button class="form-control btn btn-success" type="submit" name="button">Submit</button>
                             </div>

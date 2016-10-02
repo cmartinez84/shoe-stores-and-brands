@@ -27,7 +27,7 @@ h1{
 #logo{
     max-width: 85%;
 }
-.allStores{
+.allStores, .allBrands{
 -moz-column-count: 6;
 -moz-columns: 6;
 -webkit-columns: 6;
