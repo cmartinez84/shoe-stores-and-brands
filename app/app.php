@@ -95,7 +95,6 @@
     });
 
 
-
     $app->delete("/brands/delete", function() use ($app) {
         $selected_brand = Brand::find($_POST['brand_id']);
         $selected_brand->delete();

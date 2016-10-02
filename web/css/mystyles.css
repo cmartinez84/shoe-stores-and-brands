@@ -3,6 +3,16 @@ body{
     background-attachment: fixed;
     background-size: cover;
 }
+h1{
+    color: white;
+}
+.row{
+    background: rgba(0,0,0, 0.5);
+    margin: 30px auto;
+    padding: 15px;
+    color: white;
+}
+
 .well{
     width: 60%;
     margin: auto; 0;
@@ -14,14 +24,18 @@ body{
     width: 27%;
     text_align: center;
 }
-img{
+#logo{
     max-width: 85%;
 }
-.welcome_button{
-
+.allStores{
+-moz-column-count: 6;
+-moz-columns: 6;
+-webkit-columns: 6;
+columns: 6;
 }
 
-.welcome{
+
+.welcome, .content{
     width: 70%;
     font-family: 'Roboto Mono', monospace !important;
     text-shadow: 1px 1px 19px   rgba(0, 0, 0, 0.7);
@@ -31,6 +45,16 @@ img{
     height: 100%;
     margin: 0px;
     color: white;
+}
+.content2{
+    width: 65%;
+    font-family: 'Roboto Mono', monospace !important;
+    position: fixed;
+    right: 4%;
+    height: 100%;
+    margin: 0px;
+    /*color: white;*/
+
 }
 
 .welcome_button{
