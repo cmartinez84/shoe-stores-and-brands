@@ -8,12 +8,10 @@
     require_once "src/Store.php";
     require_once "src/Brand.php";
 
-
     $server = 'mysql:host=localhost:8889;dbname=shoes_test';
     $username = 'root';
     $password = 'root';
     $DB = new PDO($server, $username, $password);
-
 
     class StoreTest extends PHPUnit_Framework_TestCase
     {
@@ -31,11 +29,12 @@
 
             //Act
             $result = $test_store->getName();
-
+            //Assert
             $this->assertEquals($name, $result);
         }
         function test_getId()
         {
+            //Arrange
             $id = null;
             $name = "Famous Footwear";
             $test_store = new Store($id, $name);
@@ -43,10 +42,12 @@
 
             //Acts
             $result = $test_store->getId();
-
+            //Assert
             $this->assertEquals(true, is_numeric($result));
         }
-        function test_save(){
+        function test_save()
+        {
+            //Arrange
             $id = null;
             $name = "Famous Footwear";
             $test_store = new Store($id, $name);
@@ -54,11 +55,12 @@
 
             //Acts
             $result = Store::getAll();
-
+            //Assert
             $this->assertEquals([$test_store], $result);
         }
         function test_getAll()
         {
+            //Arrange
             $id = null;
             $name = "Famous Footwear";
             $test_store = new Store($id, $name);
@@ -72,10 +74,12 @@
             //Acts
             $result = Store::getAll();
 
+            //Assert
             $this->assertEquals([$test_store, $test_store2], $result);
         }
         function test_deleteAll()
         {
+            //Arrange
             $id = null;
             $name = "Famous Footwear";
             $test_store = new Store($id, $name);
@@ -90,10 +94,12 @@
             Store::deleteAll();
             $result = Store::getAll();
 
+            //Aseert
             $this->assertEquals([], $result);
         }
         function test_delete()
         {
+            //Arrange
             $id = null;
             $name = "Famous Footwear";
             $test_store = new Store($id, $name);
@@ -107,11 +113,12 @@
 
             //Acts
             $result = Store::getAll();
-
+            //Assert
             $this->assertEquals([$test_store2], $result);
         }
         function test_find()
         {
+            //Arrange
             $id = null;
             $name = "Famous Footwear";
             $test_store = new Store($id, $name);
@@ -125,11 +132,12 @@
 
             //Act
             $result = Store::getAll();
-
+            //Asserte
             $this->assertEquals([$test_store2], $result);
         }
         function test_update()
         {
+            //Arrange
             $id = null;
             $name = "Famous Footwear";
             $test_store = new Store($id, $name);
@@ -143,10 +151,12 @@
             $updated_store = Store::find($test_store_id);
             $result = $updated_store->getName();
 
+            //Assert
             $this->assertEquals("Target", $result);
         }
         function test_addBrand()
         {
+            //Arrange
             $id = null;
             $name = "Famous Footwear";
             $test_store = new Store($id, $name);
@@ -161,11 +171,12 @@
             $test_store->addBrand($test_brand_id);
             $result = $test_store->getBrands();
 
-
+            //assert
             $this->assertEquals([$test_brand], $result);
         }
         function test_getBrands()
         {
+            //Arrage
             $id = null;
             $name = "Famous Footwear";
             $test_store = new Store($id, $name);
@@ -186,11 +197,12 @@
             $test_store->addBrand($test_brand_id2);
             //Act
             $result = $test_store->getBrands();
-
+            //Assert
             $this->assertEquals([$test_brand, $test_brand2], $result);
         }
         function test_deleteBrand()
         {
+            //Arrange
             $id = null;
             $name = "Famous Footwear";
             $test_store = new Store($id, $name);
@@ -212,7 +224,7 @@
             //Act
             $test_store->removeBrand($test_brand_id2);
             $result = $test_store->getBrands();
-
+            //Assert
             $this->assertEquals([$test_brand], $result);
         }
     }

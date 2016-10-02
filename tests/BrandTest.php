@@ -85,7 +85,7 @@
         }
         function test_deleteAll()
         {
-        //Arange
+            //Arange
             $id = null;
             $name = "Nike";
             $test_brand = new Brand($id, $name);
@@ -105,6 +105,7 @@
         }
         function test_delete()
         {
+            //Arrange
             $id = null;
             $name = "Nike";
             $test_brand = new Brand($id, $name);
@@ -124,6 +125,7 @@
         }
         function test_find()
         {
+            //Arrange
             $id = null;
             $name = "Nike";
             $test_brand = new Brand($id, $name);
@@ -135,7 +137,7 @@
             $this->assertEquals($test_brand, $result);
         }
         function test_update(){
-            //Act
+            //Arrange
             $id = null;
             $name = "Nike";
             $test_brand = new Brand($id, $name);
@@ -153,7 +155,7 @@
         }
         function test_addStore()
         {
-            //Act
+            //Arrange
             $id = null;
             $brand_name = "Nike";
             $test_brand = new Brand($id, $brand_name);
@@ -173,7 +175,7 @@
         }
         function test_getStores()
         {
-            //Act
+            //Arrange
             $id = null;
             $brand_name = "Nike";
             $test_brand = new Brand($id, $brand_name);

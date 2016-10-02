@@ -6,16 +6,26 @@ body{
 h1{
     color: white;
 }
+
 ul{
     list-style: none;
 }
+
 a{
     color: inherit;
  }
- .nav-link
- {
+
+ ul{
+ -moz-column-count: 6;
+ -moz-columns: 6;
+ -webkit-columns: 6;
+ columns: 6;
+ }
+
+ .nav-link{
      text-decoration: underline;
  }
+
 .row{
     background: rgba(0,0,0, 0.5);
     margin: 30px auto;
@@ -27,6 +37,7 @@ a{
     width: 60%;
     margin: auto; 0;
 }
+
 .sidebar{
     position: fixed;
     left: 0;
@@ -34,16 +45,10 @@ a{
     width: 27%;
     text_align: center;
 }
+
 #logo{
     max-width: 85%;
 }
-ul{
--moz-column-count: 6;
--moz-columns: 6;
--webkit-columns: 6;
-columns: 6;
-}
-
 
 .welcome, .content{
     width: 70%;
@@ -56,6 +61,7 @@ columns: 6;
     margin: 0px;
     color: white;
 }
+
 .content2{
     width: 65%;
     font-family: 'Roboto Mono', monospace !important;
@@ -63,16 +69,17 @@ columns: 6;
     right: 4%;
     height: 100%;
     margin: 0px;
-    /*color: white;*/
-
 }
+
 .btn{
     background: black!important;
 }
+
 .btn:hover{
     background: white !important;
     color: black;
 }
+
 .welcome_button{
     border: 1px solid;
     width: 75%;
