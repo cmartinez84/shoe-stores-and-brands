@@ -18,8 +18,12 @@
 
       <div class="content2">
             <div>
+                <h1>Home > Stores
                 {% if selected_store %}
-                 <h1 class="display-1">Store: {{selected_store.getName}} </h1>
+                    > {{selected_store.getName}}
+                {% endif %}
+               </h1>
+               {% if selected_store %}
                  <div class="row">
                      <h2>Brands carried by this Store:</h2>
                      {% if selected_brands is  empty%}
@@ -80,15 +84,7 @@
                 {% endif %}
                  {% endif%}
                  <div class="row">
-                     <div class="col-sm-4">
-                         <form action="/stores" method="post">
-                            <div class="form-group">
-                                <label  for="">Create New Store:</label>
-                                <input class="form-control" type="text" name="name">
-                                <button class="form-control btn btn-success" type="submit" name="button">Submit</button>
-                            </div>
-                         </form>
-                     </div>
+
                      <div class="col-sm-7">
                          <h1>Stores</h1>
                          {% if allStores is not empty%}
@@ -102,6 +98,15 @@
                          <h1>There are no stores. Please add Stores!</h1>
                          {% endif %}
 
+                     </div>
+                     <div class="col-sm-4">
+                         <form action="/stores" method="post">
+                            <div class="form-group">
+                                <label  for="">Create New Store:</label>
+                                <input class="form-control" type="text" name="name">
+                                <button class="form-control btn btn-success" type="submit" name="button">Submit</button>
+                            </div>
+                         </form>
                      </div>
 
 
